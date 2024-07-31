@@ -65,6 +65,9 @@ class PrismaticVLM(VLM):
             self.projector = MLPProjector(vision_backbone.embed_dim, llm_backbone.embed_dim)
         else:
             raise ValueError(f"PrismaticVLM with `{arch_specifier = }` is not supported!")
+        self._supports_flash_attn_2 = True
+        self._supports_sdpa = True
+        self._supports_cache_class = True
 
         # Trackers
         self.vision_backbone_requires_grad = False

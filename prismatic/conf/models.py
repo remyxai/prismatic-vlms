@@ -88,8 +88,8 @@ class LLaVa_v15_Reproduction_7B(ModelConfig):
     # Align Stage Optimization Parameters
     align_epochs: int = 1
     align_max_steps: Optional[int] = None
-    align_global_batch_size: int = 256
-    align_per_device_batch_size: int = 16
+    align_global_batch_size: int = 4
+    align_per_device_batch_size: int = 1
 
     align_learning_rate: float = 1e-3
     align_weight_decay: float = 0.0
@@ -100,12 +100,12 @@ class LLaVa_v15_Reproduction_7B(ModelConfig):
     align_train_strategy: str = "fsdp-shard-grad-op"
 
     # Finetune Stage Optimization Parameters
-    finetune_epochs: int = 1
+    finetune_epochs: int = 3
     finetune_max_steps: Optional[int] = None
     finetune_global_batch_size: int = 128
-    finetune_per_device_batch_size: int = 16
+    finetune_per_device_batch_size: int = 4
 
-    finetune_learning_rate: float = 2e-5
+    finetune_learning_rate: float = 2e-6
     finetune_weight_decay: float = 0.1
     finetune_max_grad_norm: float = 1.0
     finetune_lr_scheduler_type: str = "linear-warmup+cosine-decay"
@@ -288,6 +288,7 @@ class Ext_Exp_7B_Mistral_Instruct_V1(Exp_7B_One_Stage):
 class Ext_Exp_3B_Phi_2(Exp_7B_One_Stage):
     model_id: str = "phi-2+3b"
     llm_backbone_id: str = "phi-2-3b"
+    finetune_epochs: int = 5
 
 
 # Section 4.3B :: ✌️ --> Co-training on Language-only Data
@@ -453,6 +454,15 @@ class Prism_7B_DINOSigLIP(Exp_7B_One_Stage):
     vision_backbone_id: str = "dinosiglip-vit-so-384px"
     image_resize_strategy: str = "resize-naive"
     llm_backbone_id: str = "llama2-7b-pure"
+    arch_specifier: str = "no-align+fused-gelu-mlp"
+    finetune_epochs: int = 2
+
+@dataclass
+class Prism_8B_DINOSigLIP(Exp_7B_One_Stage):
+    model_id: str = "prism-dinosiglip+8b"
+    vision_backbone_id: str = "dinosiglip-vit-so-384px"
+    image_resize_strategy: str = "resize-naive"
+    llm_backbone_id: str = "llama3-1-8b-pure"
     arch_specifier: str = "no-align+fused-gelu-mlp"
     finetune_epochs: int = 2
 

@@ -45,6 +45,20 @@ class LLaVa_V15_Config(DatasetConfig):
     )
     dataset_root_dir: Path = Path("data")
 
+@dataclass
+class Spacellava_Config(DatasetConfig):
+    dataset_id: str = "spacellava"
+
+    align_stage_components: Tuple[Path, Path] = (
+        Path("/home/ubuntu/spacellava_data/data/dataset.json"),
+        Path("/home/ubuntu/spacellava_data/data/"),
+    )
+    finetune_stage_components: Tuple[Path, Path] = (
+        Path("/home/ubuntu/spacellava_data/data/dataset.json"),
+        Path("/home/ubuntu/spacellava_data/data/"),
+    )
+    dataset_root_dir: Path = Path("/home/ubuntu/spacellava_data/data/")
+
 
 # [Multimodal-Only] LLava-v15 WITHOUT the Language-Only ShareGPT Data (No Co-Training)
 @dataclass
@@ -115,6 +129,7 @@ class LLaVa_LVIS4V_LRV_Config(DatasetConfig):
 class DatasetRegistry(Enum):
     # === LLaVa v1.5 ===
     LLAVA_V15 = LLaVa_V15_Config
+    SPACELLAVA = Spacellava_Config
 
     LLAVA_MULTIMODAL_ONLY = LLaVa_Multimodal_Only_Config
 

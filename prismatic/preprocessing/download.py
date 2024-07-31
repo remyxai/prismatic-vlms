@@ -50,6 +50,21 @@ DATASET_REGISTRY: Dict[str, List[DatasetComponent]] = {
         }
     ],
 
+    "spacellava": [
+        {
+            "name": "/v_1TB/spacellava_data/data/mobilevlm_dataset.json",        # Contains the "chat" traces :: {"human" => <prompt>, "gpt" => <caption>}
+            "extract": False,
+            "url": "",
+            "do_rename": False,
+        },
+        {
+            "name": "/v_1TB/spacellava_data/data",           # Contains the LLaVa Processed Images (jpgs, 224x224 resolution)
+            "extract": False,
+            "url": "",
+            "do_rename": False,
+        }
+    ],
+
     "llava-v1.5-instruct": [
         {
             "name": "llava_v1_5_mix665k.json",

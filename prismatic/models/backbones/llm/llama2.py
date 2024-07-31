@@ -40,6 +40,11 @@ LLAMA2_MODELS = {
         "llm_family": "llama2", "llm_cls": LlamaForCausalLM, "hf_hub_path": "meta-llama/Llama-2-13b-chat-hf"
     },
 
+    # === Meta Llama 3
+    "llama3-1-8b-pure": {
+        "llm_family": "llama2", "llm_cls": LlamaForCausalLM, "hf_hub_path": "meta-llama/Meta-Llama-3.1-8B"
+    },
+
     # === Vicuna v1.5 Chat Models ===
     "vicuna-v15-7b": {
         "llm_family": "llama2", "llm_cls": LlamaForCausalLM, "hf_hub_path": "lmsys/vicuna-7b-v1.5"
@@ -78,6 +83,9 @@ class LLaMa2LLMBackbone(HFCausalLLMBackbone):
     @property
     def prompt_builder_fn(self) -> Type[PromptBuilder]:
         if self.identifier.startswith("llama2-") and self.identifier.endswith("-pure"):
+            return PurePromptBuilder
+
+        if self.identifier.startswith("llama3-") and self.identifier.endswith("-pure"):
             return PurePromptBuilder
 
         elif self.identifier.startswith("llama2-") and self.identifier.endswith("-chat"):

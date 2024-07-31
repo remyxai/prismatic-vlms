@@ -60,6 +60,9 @@ LLM_BACKBONES = {
     "llama2-7b-chat": {"cls": LLaMa2LLMBackbone, "kwargs": {}},
     "llama2-13b-chat": {"cls": LLaMa2LLMBackbone, "kwargs": {}},
 
+    # === llama3 
+    "llama3-1-8b-pure": {"cls": LLaMa2LLMBackbone, "kwargs": {}},
+
     # === Vicuna-v1.5 Backbones ===
     "vicuna-v15-7b": {"cls": LLaMa2LLMBackbone, "kwargs": {}},
     "vicuna-v15-13b": {"cls": LLaMa2LLMBackbone, "kwargs": {}},

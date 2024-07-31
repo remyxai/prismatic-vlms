@@ -575,6 +575,19 @@ MODEL_REGISTRY = {
             "train_epochs": 2,
         },
     },
+    "prism-dinosiglip+8b": {
+        "model_id": "prism-dinosiglip+8b",
+        "names": ["Prism-DINOSigLIP 8B"],
+        "description": {
+            "name": "DINOSigLIP Prism 8B",
+            "optimization_procedure": "single-stage",
+            "visual_representation": "DINOv2 ViT-L/14 + SigLIP ViT-SO/14 @ 384px",
+            "image_processing": "Naive Resize",
+            "language_model": "Llama-3.1 8B",
+            "datasets": ["LLaVa v1.5 Instruct", "LVIS-Instruct-4V", "LRV-Instruct"],
+            "train_epochs": 2,
+        },
+    },
     "prism-dinosiglip+13b": {
         "model_id": "prism-dinosiglip+13b",
         "names": ["Prism-DINOSigLIP 13B"],
