@@ -57,7 +57,6 @@ def load(
         assert config_json.exists(), f"Missing `config.json` for `{run_dir = }`"
         assert checkpoint_pt.exists(), f"Missing checkpoint for `{run_dir = }`"
     elif model_id_or_path in GLOBAL_REGISTRY:
-
         overwatch.info(f"Downloading `{(model_id := GLOBAL_REGISTRY[model_id_or_path]['model_id'])} from HF Hub")
         config_json = hf_hub_download(repo_id=HF_HUB_REPO, filename=f"{model_id}/config.json", cache_dir=cache_dir)
         checkpoint_pt = hf_hub_download(
@@ -65,7 +64,7 @@ def load(
         )
     elif model_id_or_path not in GLOBAL_REGISTRY:
         try:
-            overwatch.info(f"Downloading `{(model_id := GLOBAL_REGISTRY[model_id_or_path]['model_id'])} from HF Hub")
+            overwatch.info(f"Downloading `{model_id_or_path} from HF")
             config_json = hf_hub_download(repo_id=model_id_or_path, filename=f"config.json", cache_dir=cache_dir)
             checkpoint_pt = hf_hub_download(
                     repo_id=model_id_or_path, filename=f"checkpoints/latest-checkpoint.pt", cache_dir=cache_dir
