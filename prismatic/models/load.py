@@ -56,15 +56,22 @@ def load(
         config_json, checkpoint_pt = run_dir / "config.json", run_dir / "checkpoints" / "latest-checkpoint.pt"
         assert config_json.exists(), f"Missing `config.json` for `{run_dir = }`"
         assert checkpoint_pt.exists(), f"Missing checkpoint for `{run_dir = }`"
-    else:
-        if model_id_or_path not in GLOBAL_REGISTRY:
-            raise ValueError(f"Couldn't find `{model_id_or_path = }; check `prismatic.available_model_names()`")
+    elif model_id_or_path in GLOBAL_REGISTRY:
 
         overwatch.info(f"Downloading `{(model_id := GLOBAL_REGISTRY[model_id_or_path]['model_id'])} from HF Hub")
         config_json = hf_hub_download(repo_id=HF_HUB_REPO, filename=f"{model_id}/config.json", cache_dir=cache_dir)
         checkpoint_pt = hf_hub_download(
             repo_id=HF_HUB_REPO, filename=f"{model_id}/checkpoints/latest-checkpoint.pt", cache_dir=cache_dir
         )
+    elif model_id_or_path not in GLOBAL_REGISTRY:
+        try:
+            overwatch.info(f"Downloading `{(model_id := GLOBAL_REGISTRY[model_id_or_path]['model_id'])} from HF Hub")
+            config_json = hf_hub_download(repo_id=model_id_or_path, filename=f"config.json", cache_dir=cache_dir)
+            checkpoint_pt = hf_hub_download(
+                    repo_id=model_id_or_path, filename=f"checkpoints/latest-checkpoint.pt", cache_dir=cache_dir
+                    )
+        except:
+            raise ValueError(f"Couldn't find `{model_id_or_path = }`")
 
     # Load Model Config from `config.json`
     with open(config_json, "r") as f:
